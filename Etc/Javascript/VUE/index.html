@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- <script src="vue.js"></script> -->
+</head>
+<body>
+    <div id="app">
+        {{ message }}
+    </div>
+
+    <div id="app-2">
+        <span v-bind:title="message">
+            Day la
+        </span>
+    </div>
+
+    <div id="app-3">
+        <span v-if="seen">Thoat an thoat hien</span>
+    </div>
+
+    <div id="app-4">
+        <ol>
+            <li v-for="todo in todos"> 
+                {{ todo.text }}
+            </li>
+        </ol>
+    </div>
+
+    <div id="app-5">
+        <p>{{ message }}</p>
+        <button v-on:click="reverseMessage">Reverse Message</button>
+    </div>
+
+    <div id="app-6">
+        <p>{{ message }}</p>
+        <input v-model="message">
+      </div>
+
+    <ol>
+    <!-- Tạo một đối tượng của component todo-item -->
+    <div id="app-7">
+        <p>Những thứ họ mua:</p>
+        <ol>
+          <!--
+            Ở đây chúng ta cung cấp một object "todo" cho mỗi component
+            "todo-item". Bằng cách này nội dung của từng component trở nên động.
+            Mỗi component cũng sẽ nhận một thuộc tính "key". Chúng ta sẽ
+            nói thêm về thuộc tính này sau.
+          -->
+          <todo-item
+            v-for="item in groceryList"
+            v-bind:todo="item"
+            v-bind:key="item.id">
+          </todo-item>
+
+        </ol>
+    </div>
+
+    <div id="app-8">
+        <p>Những thứ họ mua la:</p>
+        <ol>
+          <!--
+            Ở đây chúng ta cung cấp một object "todo" cho mỗi component
+            "todo-item". Bằng cách này nội dung của từng component trở nên động.
+            Mỗi component cũng sẽ nhận một thuộc tính "key". Chúng ta sẽ
+            nói thêm về thuộc tính này sau.
+          -->
+          <hello
+            v-for="item in a1"
+            v-bind:f1="item"
+            v-bind:key="item.id">
+          </hello>
+          
+        </ol>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Do you know me?'
+            }
+        })
+
+        var app2 = new Vue({
+            el: '#app-2',
+            data: {
+                message: 'Ban mo trang nay vao'+ new Date().toLocaleString()
+            }
+        })
+
+        var var3 = new Vue({
+            el: '#app-3',
+            data: {
+                seen: false
+            }
+        })
+        
+        var app4 = new Vue({
+            el: '#app-4',
+            data: {
+                todos: [
+                    { text: 'Hoc javascp' },
+                    { text: 'php' },
+                    { text: 'vue' },
+                ]
+            }
+        })
+        app4.todos.push({ text: 'flute' })
+        
+        var app5 = new Vue({
+            el: '#app-5',
+            data: {
+                message: 'qua lại khách chờ sông lặng sóng'
+            },
+            methods: {
+                reverseMessage: function () {
+                this.message = this.message.split(' ').reverse().join(' ')
+                }
+            }
+        })
+        
+        var app6 = new Vue({
+            el: '#app-6',
+            data: {
+                message: 'Hãy sửa thông điệp này'
+            }
+        })
+
+        Vue.component('todo-item', {
+            props: ['todo'],
+            template: '<li>{{ todo.text }}</li>'
+        })
+
+        var app7 = new Vue({
+            el: '#app-7',
+            data: {
+                groceryList: [
+                { id: 0, text: 'Cà pháo' },
+                { id: 1, text: 'Mắm tôm' },
+                { id: 2, text: 'Miễn ăn được là được' }
+                ]
+            }
+        })
+
+        Vue.component('hello', {
+            props: ['f1'],
+            template: '<li>{{ f1.text }}</li>'
+        })
+
+        var app8 = new Vue({
+            el: '#app-8',
+            data: {
+                a1: [
+                { id: 0, text: 'Cà pháo' },
+                { id: 1, text: 'Mắm tôm' },
+                { id: 2, text: 'Miễn ăn được là được' }
+                ]
+            }
+        })
+    </script>
+</body>
+</html>
